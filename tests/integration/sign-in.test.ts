@@ -38,7 +38,7 @@ describe("POST /sign-in", () => {
         expect(response.status).toBe(400);
     });
 
-    it("should answer with status 400 when trying to sign-in with unregistered user", async () => {
+    it("should answer with status 401 when trying to sign-in with unregistered user", async () => {
         const body = signUpBody();
         const response = await supertest(app).post("/sign-in").send({email: body.email, password: body.password});
         expect(response.status).toBe(401);

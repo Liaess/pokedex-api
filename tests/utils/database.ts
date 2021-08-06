@@ -1,7 +1,6 @@
 import { getRepository } from "typeorm";
-
-import User from "../../src/entities/User";
-import Session from "../../src/entities/Sessions";
+import User from "../../src/entities/UserEntity";
+import Session from "../../src/entities/SessionEntity";
 
 export async function clearDatabase () {
   await getRepository(Session).delete({});

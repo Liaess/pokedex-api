@@ -1,7 +1,7 @@
 import faker from "faker";
 import bcrypt from "bcrypt";
 import { getRepository } from "typeorm";
-import User from "../../src/entities/User";
+import User from "../../src/entities/UserEntity";
 
 export function signUpBody(){
     return{

@@ -1,18 +1,26 @@
 import "./setup";
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import "reflect-metadata";
 import connectDatabase from "./database";
 import * as userController from "./controllers/userController";
 import * as pokemonController from "./controllers/pokemonController"
+import { authMiddleware } from "./middlewares/authMiddleware";
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
+
 app.post("/sign-up", userController.signUp);
 app.post("/sign-in", userController.signIn);
-app.get("/populate", pokemonController.populatePokemons);
-app.get("/pokemons", pokemonController.getAllPokemons)
+app.post("/populate",pokemonController.populatePokemons);
+app.get("/pokemons", authMiddleware, pokemonController.getAllPokemons);
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  console.log(err);
+  return res.sendStatus(500);
+});
 
 export async function init () {
   await connectDatabase();

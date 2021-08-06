@@ -16,6 +16,8 @@ app.post("/sign-up", userController.signUp);
 app.post("/sign-in", userController.signIn);
 app.post("/populate",pokemonController.populatePokemons);
 app.get("/pokemons", authMiddleware, pokemonController.getAllPokemons);
+app.post("/my-pokemons/:id/add", authMiddleware, pokemonController.addPokemon)
+app.post("/my-pokemons/:id/remove", authMiddleware, pokemonController.removePokemon)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err);

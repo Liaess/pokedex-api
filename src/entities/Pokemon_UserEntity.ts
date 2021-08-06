@@ -9,6 +9,6 @@ export default class Pokemon_User {
   pokemonId: number;
 
   @Column()
-  userId: number;
+  usersId: number;
 
 }

@@ -44,6 +44,21 @@ describe("POST /sign-up", () => {
     expect(response.status).toBe(400);
   });
 
+  it("should answer with status 400 when trying to sign-up with numeric password", async () => {
+    const body = signUpBody();
+    const anotherBody = signUpBody();
+    const response = await supertest(app).post("/sign-up").send({email: body.email, password: 3, confirmPassword: anotherBody.password});
+    expect(response.status).toBe(400);
+  });
+
+  it("should answer with status 400 when trying to sign-up with numeric confirmPassword", async () => {
+    const body = signUpBody();
+    const anotherBody = signUpBody();
+    const response = await supertest(app).post("/sign-up").send({email: body.email, password: body.password, confirmPassword: 3});
+    expect(response.status).toBe(400);
+  });
+
+
   it("should answer with status 400 when trying to sign-up with empty confirmpassoword", async () => {
     const body = signUpBody();
     const response = await supertest(app).post("/sign-up").send({email: body.email, password: body.password, confirmPassword: ""});
